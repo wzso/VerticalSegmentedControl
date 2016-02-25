@@ -19,16 +19,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = NSStringFromClass([VerticalSegmentedControl class]);
+    self.title = @"Vertical Segmented Control";
     
     NSMutableArray *titles = [NSMutableArray array];
-    for (int i = 1; i <= 20; i ++) {
-        NSString *title = [NSString stringWithFormat:@"Title%02d", i];
+    for (int i = 1; i <= 30; i ++) {
+        NSString *title = [NSString stringWithFormat:@"Index-%02d", i];
         [titles addObject:title];
     }
-    NSLog(@"%@", titles);
     
-    VerticalSegmentedControl *verticalSegmentedControl = [[VerticalSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 80.f, kSCREEN_HEIGHT) rowHeight:50.f titles:titles selectedIndex:5];
+    __weak typeof(self) weakSelf = self;
+    VerticalSegmentedControl *verticalSegmentedControl = [[VerticalSegmentedControl alloc] initWithFrame:CGRectMake(0, 64.f, 80.f, kSCREEN_HEIGHT - 64.f) rowHeight:50.f titles:titles selectedIndex:0 selectionCallback:^(NSUInteger selectedIndex) {
+        weakSelf.titleLabel.text = [NSString stringWithFormat:@"Selected index: %zd", selectedIndex];
+    }];
     [self.view addSubview:verticalSegmentedControl];
 }
 

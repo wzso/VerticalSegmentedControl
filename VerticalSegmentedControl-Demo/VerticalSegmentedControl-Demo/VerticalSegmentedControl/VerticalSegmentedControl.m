@@ -13,15 +13,17 @@
 
 @interface VerticalSegmentedControl () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray <NSString *>*titles;
+@property (nonatomic, copy) VerticalSegmentedControlCallbackOnSelection callback;
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation VerticalSegmentedControl
 #pragma mark - APIs
-- (instancetype)initWithFrame:(CGRect)frame rowHeight:(CGFloat)rowHeight titles:(NSArray <NSString *>*)titles selectedIndex:(NSUInteger)idx {
+- (instancetype)initWithFrame:(CGRect)frame rowHeight:(CGFloat)rowHeight titles:(NSArray <NSString *>*)titles selectedIndex:(NSUInteger)idx selectionCallback:(VerticalSegmentedControlCallbackOnSelection)callback{
     self = [super initWithFrame:frame];
     if (self) {
         self.titles = titles;
+        self.callback = callback;
         [self createTableViewWithRowHeight:rowHeight];
         NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:idx inSection:0];
         [self.tableView selectRowAtIndexPath:selectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
@@ -59,6 +61,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if (self.callback) {
+        self.callback(indexPath.row);
+    }
 }
 
 @end

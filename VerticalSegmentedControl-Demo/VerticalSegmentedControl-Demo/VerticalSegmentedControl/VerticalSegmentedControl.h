@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^VerticalSegmentedControlCallbackOnSelection)(NSUInteger selectedIndex);
 
+///
 @interface VerticalSegmentedControl : UIView
 @property (nonatomic, readonly) NSUInteger selectedIndex;
 /// Designated Initializer
-- (instancetype)initWithFrame:(CGRect)frame rowHeight:(CGFloat)rowHeight titles:(NSArray <NSString *>*)titles selectedIndex:(NSUInteger)idx;
+- (instancetype)initWithFrame:(CGRect)frame rowHeight:(CGFloat)rowHeight titles:(NSArray <NSString *>*)titles selectedIndex:(NSUInteger)idx selectionCallback:(VerticalSegmentedControlCallbackOnSelection)callback;
 @end
