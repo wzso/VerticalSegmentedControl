@@ -21,4 +21,6 @@ Demo中，选中一个条目后，选中条目会自动滚动到最顶部（只�
 [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 ```
 
+## Star
+
 如果这个 demo 对你有用的话，欢迎 Star :)
